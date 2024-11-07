@@ -22,7 +22,7 @@ jobs:
           node-version: "20"
 
       - name: Install dependencies
-        cd frontend 
+        cd frontend
         run: npm install
 
       - name: Run tests
