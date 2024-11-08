@@ -28,14 +28,14 @@ jobs:
         run: |
           # Save the SSH key and set permissions
           mkdir -p ~/.ssh
-          echo "${SSH_KEY}" | tr -d '\r' > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
+          echo "${SSH_KEY}" | sed 's/\\n/\n/g' > ~/.ssh/id_rsa.pub
+          chmod 600 ~/.ssh/id_rsa.pub
           
           # Add the EC2 host to known_hosts to prevent SSH prompts
           ssh-keyscan -H $SERVER_HOST >> ~/.ssh/known_hosts
           
           # SSH into the EC2 instance and deploy the application
-          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa $SERVER_USER@$SERVER_HOST << 'EOF'
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa.pub $SERVER_USER@$SERVER_HOST << 'EOF'
             cd /home/ec2-user/my_python_app
             git pull origin main
             source venv/bin/activate
