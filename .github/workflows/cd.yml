@@ -26,8 +26,8 @@ jobs:
           SERVER_USER: ${{ secrets.SERVER_USER }}
           SSH_KEY: ${{ secrets.SSH_KEY }}
         run: |
-          echo "${SSH_KEY}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
+          echo "${SSH_KEY}" > ~/home/ec2-user/.ssh/id_rsa
+          chmod 600 ~/home/ec2-user/.ssh/id_rsa
           ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_HOST << 'EOF'
             cd /home/ec2-user/my_python_app
             git pull origin main
