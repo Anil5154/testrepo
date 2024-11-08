@@ -38,7 +38,6 @@ jobs:
           ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa.pub $SERVER_USER@$SERVER_HOST << 'EOF'
             cd /home/ec2-user/my_python_app
             git pull origin main
-            source venv/bin/activate
             pip3 install -r requirements.txt
-            sudo systemctl restart my_python_app
+            sudo systemctl restart fastapi.service
           EOF
