@@ -2,7 +2,7 @@ name: Continuous Deployment
 
 on:
   workflow_run:
-    workflows: ["Continuous Integration"]
+    workflows: ["Python application"]
     types:
       - completed
 
@@ -26,8 +26,15 @@ jobs:
           SERVER_USER: ${{ secrets.SERVER_USER }}
           SSH_KEY: ${{ secrets.SSH_KEY }}
         run: |
-          echo "${SSH_KEY}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
+          # Save the SSH key and set permissions
+          mkdir -p ~/.ssh
+          echo "${SSH_KEY}" | tr -d '\r' > ~/.ssh/id_rsa
+          chmod 600 ~/home/ec2-user/.ssh/id_rsa
+          
+          # Add the EC2 host to known_hosts to prevent SSH prompts
+          ssh-keyscan -H $SERVER_HOST >> ~/home/ec2-user/.ssh/known_hosts
+          
+          # SSH into the EC2 instance and deploy the application
           ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_HOST << 'EOF'
             cd /home/ec2-user/my_python_app
             git pull origin main
@@ -35,4 +42,3 @@ jobs:
             pip install -r requirements.txt
             sudo systemctl restart my_python_app
           EOF
-

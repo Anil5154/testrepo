@@ -6,6 +6,7 @@ on:
     paths:
       - 'backend/**'
       - '.github/workflows/python-app.yml'
+      - '.github/workflows/cd.yml'
 
 jobs:
   build:
@@ -30,3 +31,6 @@ jobs:
     - name: Test with pytest
       run: |
         pytest
+    - name: Debug Conclusion
+      if: ${{ success() }}
+      run: echo "CI workflow completed with success"

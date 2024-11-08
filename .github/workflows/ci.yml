@@ -6,7 +6,7 @@ on:
       - main
     paths:
       - 'frontend/**'
-      - '.github/workflows/python-app.yml'
+      - '.github/workflows/ci.yml'
 
 jobs:
   test:
