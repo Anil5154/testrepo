@@ -2,7 +2,7 @@ name: Continuous Deployment
 
 on:
   workflow_run:
-    workflows: ["Python application", "Run Tests"]
+    workflows: ["Run Tests"]
     types:
       - completed
 
