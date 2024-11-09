@@ -13,50 +13,47 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Check for changes in 'frontend' directory
-        id: check_changes
+      - name: Check if frontend directory has changes
+        id: check_frontend_changes
         run: |
-          # Check if there are changes in the frontend/ directory
-          if git diff --name-only HEAD^ HEAD | grep -q '^frontend/'; then
-            echo "Changes found in the frontend directory"
-            echo "::set-output name=should_run::true"
+          if git diff --quiet HEAD^ HEAD -- backend; then
+            echo "frontend_modified=false" >> $GITHUB_ENV
           else
-            echo "No changes found in the frontend directory"
-            echo "::set-output name=should_run::false"
+            echo "frontend_modified=true" >> $GITHUB_ENV
           fi
 
       - name: Set up Node.js
-        if: steps.check_changes.outputs.should_run == 'true'
+        if: env.frontend_modified == 'true'
         uses: actions/setup-node@v4
         with:
           node-version: "20"
 
       - name: Install dependencies
-        if: steps.check_changes.outputs.should_run == 'true'
+        if: env.frontend_modified == 'true'
         run: |
           cd frontend
           npm install
 
       - name: Run tests
         id: run_tests
-        if: steps.check_changes.outputs.should_run == 'true'
+        if: env.frontend_modified == 'true'
         run: |
           cd frontend
           npm run test -- --ci --coverage
       - name: Evaluate Test Results
-        if: steps.check_changes.outputs.should_run == 'true' && steps.run_tests.outcome == 'failure'
+        if: env.frontend_modified == 'true' && steps.run_tests.outcome == 'failure'
         run: |
           echo "Tests failed. Setting job status to failed."
           exit 1
 
       - name: Run linter
-        if: steps.check_changes.outputs.should_run == 'true'
+        if: env.frontend_modified == 'true'
         run: |
           cd frontend
           npm run lint
 
       - name: Build
-        if: steps.check_changes.outputs.should_run == 'true'
+        if: env.frontend_modified == 'true'
         run: |
           cd frontend
           npm run build

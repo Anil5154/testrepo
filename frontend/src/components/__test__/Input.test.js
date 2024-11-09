@@ -10,7 +10,7 @@ describe('Input Component', () => {
     expect(inputField).toBeInTheDocument();
 
     fireEvent.change(inputField, { target: { value: 'Hello, World!' } });
-    expect(inputField.value).toBe('Hello99, World!');
+    expect(inputField.value).toBe('Hello, World!');
 	expect(screen.getByText('Hello, World!')).toBeInTheDocument();
   });
 });
