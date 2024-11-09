@@ -11,6 +11,6 @@ describe('Input Component', () => {
 
     fireEvent.change(inputField, { target: { value: 'Hello, World!' } });
     expect(inputField.value).toBe('Hello, World!');
-	expect(screen.getByText('Hello99, World!')).toBeInTheDocument();
+	expect(screen.getByText('Hello, World!')).toBeInTheDocument();
   });
 });
