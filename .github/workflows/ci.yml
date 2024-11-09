@@ -1,13 +1,15 @@
 name: Run Tests
+
 on:
   workflow_run:
     workflows: ["Python application"]
     types:
       - completed
+
 jobs:
   test:
-   if: ${{ github.event.workflow_run.conclusion == 'success' }}
-   runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
@@ -16,7 +18,7 @@ jobs:
       - name: Check if frontend directory has changes
         id: check_frontend_changes
         run: |
-          if git diff --quiet HEAD^ HEAD -- backend; then
+          if git diff --quiet HEAD^ HEAD -- frontend; then
             echo "frontend_modified=false" >> $GITHUB_ENV
           else
             echo "frontend_modified=true" >> $GITHUB_ENV
@@ -40,6 +42,7 @@ jobs:
         run: |
           cd frontend
           npm run test -- --ci --coverage
+
       - name: Evaluate Test Results
         if: env.frontend_modified == 'true' && steps.run_tests.outcome == 'failure'
         run: |
