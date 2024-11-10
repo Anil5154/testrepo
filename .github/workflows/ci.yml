@@ -1,10 +1,9 @@
 name: Run Tests
 
 on:
-  workflow_run:
-    workflows: ["Python application"]
-    types:
-      - completed
+  pull_request:
+    branches:
+      - main
 
 jobs:
   test:
