@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  build:
+  BE-Tests:
     runs-on: ubuntu-latest
 
     steps:
@@ -53,8 +53,8 @@ jobs:
       - name: Tests Passed
         if: env.backend_modified == 'true' && steps.run_tests.outcome == 'success'
         run: echo "Tests passed successfully!"
-  test:
-    needs: build
+  FE-Tests:
+    needs: BE-Tests
     runs-on: ubuntu-latest
 
     steps:
