@@ -1,43 +1,74 @@
-name: Continuous Deployment
+# name: Continuous Deployment
 
+# on:
+#   workflow_run:
+#     workflows: ["CI workflow"]
+#     types:
+#       - completed
+
+# jobs:
+#   deploy:
+#     if: ${{ github.event.workflow_run.conclusion == 'success' }}
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v4
+
+#       - name: Set up Python
+#         uses: actions/setup-python@v4
+#         with:
+#           python-version: '3.x'
+
+#       - name: Deploy to EC2
+#         env:
+#           SERVER_HOST: ${{ secrets.SERVER_HOST }}
+#           SERVER_USER: ${{ secrets.SERVER_USER }}
+#           SSH_KEY: ${{ secrets.SSH_KEY }}
+#         run: |
+#           # Save the SSH key and set permissions
+#           mkdir -p ~/.ssh
+#           echo "${SSH_KEY}" | sed 's/\\n/\n/g' > ~/.ssh/id_rsa.pub
+#           chmod 600 ~/.ssh/id_rsa.pub
+          
+#           # Add the EC2 host to known_hosts to prevent SSH prompts
+#           ssh-keyscan -H $SERVER_HOST >> ~/.ssh/known_hosts
+          
+#           # SSH into the EC2 instance and deploy the application
+#           ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa.pub $SERVER_USER@$SERVER_HOST << 'EOF'
+#             cd /home/ec2-user/my_python_app
+#             git pull origin main
+#             pip3 install -r requirements.txt
+#             sudo systemctl restart fastapi.service
+#           EOF
 on:
-  workflow_run:
-    workflows: ["CI workflow"]
-    types:
-      - completed
+  push:
+    branches:
+      - main  # Trigger the workflow only on pushes to the main branch
 
 jobs:
   deploy:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
         with:
-          python-version: '3.x'
+          node-version: '16'  # Specify your Node.js version
 
-      - name: Deploy to EC2
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build the React app
+        run: npm run build
+
+      - name: Deploy to S3
         env:
-          SERVER_HOST: ${{ secrets.SERVER_HOST }}
-          SERVER_USER: ${{ secrets.SERVER_USER }}
-          SSH_KEY: ${{ secrets.SSH_KEY }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: 'us-east-1'  # Update to your AWS region
         run: |
-          # Save the SSH key and set permissions
-          mkdir -p ~/.ssh
-          echo "${SSH_KEY}" | sed 's/\\n/\n/g' > ~/.ssh/id_rsa.pub
-          chmod 600 ~/.ssh/id_rsa.pub
-          
-          # Add the EC2 host to known_hosts to prevent SSH prompts
-          ssh-keyscan -H $SERVER_HOST >> ~/.ssh/known_hosts
-          
-          # SSH into the EC2 instance and deploy the application
-          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa.pub $SERVER_USER@$SERVER_HOST << 'EOF'
-            cd /home/ec2-user/my_python_app
-            git pull origin main
-            pip3 install -r requirements.txt
-            sudo systemctl restart fastapi.service
-          EOF
+          aws s3 sync build/ s3://frontend-bat --exclude "*" --include "*.css" --include "*.js" --delete
