@@ -60,7 +60,7 @@ jobs:
           node-version: '16'  # Specify your Node.js version
 
       - name: Install dependencies
-         cd testrepo/frontend
+        working-directory: testrepo/frontend
         run: npm install
 
       - name: Build the React app
