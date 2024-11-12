@@ -1,7 +1,7 @@
 import { PrimeReactProvider } from "primereact/api";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Medallion from "./page/medallion";
-import NewMedallion from "./page/newMedallion";
+// import NewMedallion from "./page/newMedallion";
 import Manage from "./page/manage";
 import Home from "./page/home";
 import { Provider } from "react-redux";
