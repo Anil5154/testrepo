@@ -65,7 +65,7 @@ jobs:
 
       - name: Build the React app
         working-directory: ./frontend 
-        run: npm build
+        run: npm run build
 
       - name: Verify AWS S3 Connection
         env:
