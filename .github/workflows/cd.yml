@@ -60,12 +60,12 @@ jobs:
           node-version: '16'  # Specify your Node.js version
 
       - name: Install Dependencies
-        run: |
-          npm install
+        working-directory: ./frontend 
+        run: npm install
 
       - name: Build the React app
-        run: |
-          npm build
+        working-directory: ./frontend 
+        run: npm build
 
       - name: Verify AWS S3 Connection
         env:
