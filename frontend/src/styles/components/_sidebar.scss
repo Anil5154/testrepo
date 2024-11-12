@@ -5,8 +5,37 @@
     padding-block: 25px;
     .menu-link{
         padding: 15px 8px;
-        // background-color: red; 
         gap: 20px;  
-        color: var(--text-white);     
+        color: var(--text-hash);
+        .home-icon{
+            fill: rgb(106, 104, 104);
+            path{
+                fill: rgb(106, 104, 104);
+            }
+        }
+        &.active{
+            color: var(--text-white);  
+            .home-icon{
+                path{
+                    fill: var(--text-white); ;
+                }
+            }
+        }
+        .home-icon{
+            width: 25px;
+        }   
+    }
+    .p-accordion .p-accordion-header .p-accordion-header-link{
+        padding: unset;
+        background-color: transparent;
+        border: 0;
+        flex-direction: row-reverse;
+        
+    }
+    .sub-link{
+        margin: 0;
+        .menu-link{
+            padding: 3px 10px 3px 45px;
+        }
     }
 }

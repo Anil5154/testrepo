@@ -19,3 +19,7 @@
      font-family:dmsans-medium;
      src: url("../public/assets/fonts/DMSans-Medium.ttf");
    }
+   @font-face {
+     font-family:dmsans-semibold;
+     src: url("../public/assets/fonts/DMSans-SemiBold.ttf");
+   }

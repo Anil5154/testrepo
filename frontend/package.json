@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^2.3.0",
+    "bootstrap": "^5.3.3",
     "formik": "^2.4.6",
     "highcharts": "^11.4.8",
     "highcharts-react-official": "^3.2.1",
