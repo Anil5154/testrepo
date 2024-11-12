@@ -52,18 +52,23 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: '16'  # Specify your Node.js version
+          node-version: '20'  # Specify your Node.js version
 
-      - name: Install dependencies
-         cd testrepo/frontend
+      - name: Install Dependencies
+        working-directory: ./frontend 
         run: npm install
+        
+      - name: Run linter
+        working-directory: ./frontend
+        run: npm run lint
 
       - name: Build the React app
+        working-directory: ./frontend 
         run: npm run build
 
       - name: Verify AWS S3 Connection
