@@ -70,7 +70,7 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: 'us-east-1'  # Update to your AWS region
-          DEPLOY_ENV: 'dev' 
+          DEPLOY_ENV: dev
         run: |
           echo "Checking AWS S3 connection..."
           aws s3 ls s3://frontend-bat || exit 1
@@ -79,7 +79,7 @@ jobs:
       - name: Deploy to S3
         run: |
           # Define the S3 base path based on environment
-          if [ "dev" = "dev" ]; then
+          if [ ${DEPLOY_ENV} = "dev" ]; then
             aws s3 sync . s3://frontend-bat/Dev/ --exclude "*" --include "*.css" --include "*.js"
           # elif [ "$DEPLOY_ENV" = "qa" ]; then
           #   S3_PATH="s3://frontend-bat/QA/"
