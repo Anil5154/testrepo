@@ -98,6 +98,6 @@ jobs:
           echo "Deploying to: ${S3_PATH}"
           
           # Sync files to the specified S3 path
-          aws s3 sync ./build ${S3_PATH} --exclude "*" --include "*.css" --include "*.js"
+          aws s3 sync testrepo/frontend/build/ ${S3_PATH} --exclude "*" --include "*.css" --include "*.js"
           
           echo "Deployment to ${DEPLOY_ENV} environment completed successfully."
