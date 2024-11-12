@@ -22,11 +22,11 @@ function App() {
             <Route path="/" element={<Layout />}>
               <Route index element={<Home />} />
               <Route path="/medallion">
-                <Route index element={<Navigate to="new-medallion" />} />
+                // // <Route index element={<Navigate to="new-medallion" />} />
                 <Route path="new-medallion" element={<NewMedallion />}>
                   <Route index element={<ChooseMedallion />} />
                   <Route path="create-individual-owner" element={<CreateIndividualOwner />} />
-                  <Route path="create-corporation-owner" element={<NewMedallion />} />
+                  // <Route path="create-corporation-owner" element={<NewMedallion />} />
                 </Route>
                 <Route path="manage" element={<Manage />} />
               </Route>
