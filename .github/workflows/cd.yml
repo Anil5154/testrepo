@@ -59,13 +59,15 @@ jobs:
         with:
           node-version: '16'  # Specify your Node.js version
 
-      - name: Install dependencies
-        working-directory: testrepo/frontend
-        run: npm install
+      - name: Install Dependencies
+        run: |
+          cd testrepo/frontend
+          npm install
 
       - name: Build the React app
-        working-directory: testrepo/frontend
-        run: npm run build
+        run: |
+          cd testrepo/frontend
+          npm run build
 
       - name: Verify AWS S3 Connection
         env:
