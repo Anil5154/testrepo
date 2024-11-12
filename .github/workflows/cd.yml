@@ -92,10 +92,7 @@ jobs:
           echo "Deploying to: ${S3_PATH}"
           
           # Sync files to the appropriate environment directory
-          aws s3 sync . ${S3_PATH} \
-            --exclude "*" \
-            --include "*.css" \
-            --include "*.js" \
-            --delete
+           aws s3 sync . s3://frontend-bat/Dev/ --exclude "*" --include "*.css" --include "*.js"
+           # aws s3 sync . s3://${S3_PATH} --exclude "*" --include "*.css" --include "*.js"
           
           echo "Deployment to ${DEPLOY_ENV} environment completed successfully"
