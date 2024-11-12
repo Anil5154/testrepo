@@ -1,0 +1,79 @@
+name: Test Coverage Verification
+
+on:
+  pull_request:
+    branches: [ main, master ]
+  push:
+    branches: [ main, master ]
+
+jobs:
+  verify-tests:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Get changed files
+        id: changed-files
+        run: |
+          # Get list of changed files compared to base branch
+          CHANGED_FILES=$(git diff --name-only origin/${{ github.base_ref }} ${{ github.sha }} || git diff --name-only HEAD~1 HEAD)
+          echo "Changed files: $CHANGED_FILES"
+          echo "files=$CHANGED_FILES" >> $GITHUB_OUTPUT
+
+      - name: Check for test files
+        run: |
+          # Initialize error flag
+          MISSING_TESTS=0
+          
+          # Read changed files
+          for FILE in ${{ steps.changed-files.outputs.files }}; do
+            # Skip if the file is already a test file
+            if [[ $FILE == *test* ]] || [[ $FILE == *spec* ]]; then
+              continue
+            fi
+            
+            # Skip non-source files (adjust extensions as needed)
+            if [[ ! $FILE =~ \.(js|ts|py|java|cpp|rb)$ ]]; then
+              continue
+            }
+            
+            # Construct possible test file paths
+            FILE_DIR=$(dirname "$FILE")
+            FILE_NAME=$(basename "$FILE" | cut -f 1 -d '.')
+            
+            # Array of possible test file patterns
+            TEST_PATTERNS=(
+              "${FILE_DIR}/${FILE_NAME}.test.*"
+              "${FILE_DIR}/${FILE_NAME}.spec.*"
+              "${FILE_DIR}/test/${FILE_NAME}.test.*"
+              "${FILE_DIR}/tests/${FILE_NAME}.test.*"
+              "${FILE_DIR}/__tests__/${FILE_NAME}.test.*"
+              "tests/${FILE_DIR}/${FILE_NAME}.test.*"
+            )
+            
+            # Check for existence of any test file pattern
+            FOUND_TEST=0
+            for PATTERN in "${TEST_PATTERNS[@]}"; do
+              if compgen -G "$PATTERN" > /dev/null; then
+                FOUND_TEST=1
+                break
+              fi
+            done
+            
+            # If no test file found, mark as error and output message
+            if [ $FOUND_TEST -eq 0 ]; then
+              echo "❌ No test file found for: $FILE"
+              MISSING_TESTS=1
+            else
+              echo "✅ Test file found for: $FILE"
+            fi
+          done
+          
+          # Fail the workflow if any files are missing tests
+          if [ $MISSING_TESTS -eq 1 ]; then
+            echo "Error: Some source files are missing corresponding test files!"
+            exit 1
+          fi
