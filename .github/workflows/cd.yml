@@ -67,7 +67,7 @@ jobs:
       - name: Build the React app
         run: |
           cd testrepo/frontend
-          npm run build
+          npm build
 
       - name: Verify AWS S3 Connection
         env:
