@@ -80,9 +80,9 @@ jobs:
         run: |
           # Define the S3 base path based on environment
           if [ "dev" = "dev" ]; then
-            S3_PATH="s3://frontend-bat/Dev"
+            S3_PATH="s3://frontend-bat/Dev/"
           elif [ "$DEPLOY_ENV" = "qa" ]; then
-            S3_PATH="s3://frontend-bat/QA"
+            S3_PATH="s3://frontend-bat/QA/"
           else
             echo "Invalid environment"
             exit 1
