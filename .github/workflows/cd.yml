@@ -64,6 +64,7 @@ jobs:
         run: npm install
 
       - name: Build the React app
+        working-directory: testrepo/frontend
         run: npm run build
 
       - name: Verify AWS S3 Connection
