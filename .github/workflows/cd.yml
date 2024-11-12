@@ -77,22 +77,25 @@ jobs:
         continue-on-error: false  # Ensures the job fails if connection fails
 
       - name: Deploy to S3
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: 'us-east-1'
+          DEPLOY_ENV: dev  # Change to 'qa' for QA environment
         run: |
-          # Define the S3 base path based on environment
-          if [ ${DEPLOY_ENV} = "dev" ]; then
-            aws s3 sync . s3://frontend-bat/Dev/ --exclude "*" --include "*.css" --include "*.js"
-          # elif [ "$DEPLOY_ENV" = "qa" ]; then
-          #   S3_PATH="s3://frontend-bat/QA/"
+          # Determine the S3 path based on the environment
+          if [ "${DEPLOY_ENV}" = "dev" ]; then
+            S3_PATH="s3://frontend-bat/Dev/"
+          elif [ "${DEPLOY_ENV}" = "qa" ]; then
+            S3_PATH="s3://frontend-bat/QA/"
           else
-            echo "Invalid environment"
+            echo "Invalid environment specified."
             exit 1
           fi
           
-          # echo "Selected environment: ${DEPLOY_ENV}"
           echo "Deploying to: ${S3_PATH}"
           
-          # Sync files to the appropriate environment directory
-           # aws s3 sync . s3://frontend-bat/Dev/ --exclude "*" --include "*.css" --include "*.js"
-           # aws s3 sync . s3://${S3_PATH} --exclude "*" --include "*.css" --include "*.js"
+          # Sync files to the specified S3 path
+          aws s3 sync . ${S3_PATH} --exclude "*" --include "*.css" --include "*.js"
           
-          echo "Deployment to ${DEPLOY_ENV} environment completed successfully"
+          echo "Deployment to ${DEPLOY_ENV} environment completed successfully."
