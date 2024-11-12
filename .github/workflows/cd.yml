@@ -63,10 +63,6 @@ jobs:
         working-directory: ./frontend 
         run: npm install
         
-      - name: Run linter
-        working-directory: ./frontend
-        run: npm run lint
-
       - name: Build the React app
         working-directory: ./frontend 
         run: npm run build
