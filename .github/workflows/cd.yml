@@ -98,7 +98,10 @@ jobs:
           echo "Deploying to: ${S3_PATH}"
           
           # Sync files to the specified S3 path
-          aws s3 sync /home/runner/work/testrepo/testrepo/frontend/build/ ${S3_PATH} --exclude "*" --include "*.css" --include "*.js"
+          # aws s3 sync /home/runner/work/testrepo/testrepo/frontend/build/ ${S3_PATH} --exclude "*" --include "*.css" --include "*.js"
           # aws s3 sync /home/runner/work/testrepo/testrepo/frontend/build/ ${S3_PATH} --include "*.*"
+          find /home/runner/work/testrepo/testrepo/frontend/build/ -type f \( -name "*.css" -o -name "*.js" \) -exec aws s3 cp {} ${S3_PATH}/$(basename {}) --only-show-errors \;
+
+
           
           echo "Deployment to ${DEPLOY_ENV} environment completed successfully."
