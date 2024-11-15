@@ -1,5 +1,5 @@
 const Img = ({ name, className }) => {
-  if (name == "notification") {
+  if (name === "notification") {
     return (
       <svg
         className={className}
