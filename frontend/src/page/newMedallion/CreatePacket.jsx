@@ -35,7 +35,7 @@ const CreatePacket = () => {
 
   const documentName=(data) => {
      const [,extension] = splitFileName(data.documentName);
-     const img=extension=="pdf"?"pdf":"img"
+     const img=extension==="pdf"?"pdf":"img"
      return <div className="d-flex align-items-center gap-2 doc-img"><Img name={img}></Img><p>{data.documentName}</p></div>
   }
 
