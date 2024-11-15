@@ -16,10 +16,9 @@ const Sidebar = () => {
       >
         <Img name="home" className="home-icon"></Img> <span>Home</span>
       </NavLink>
-
       <Accordion
         activeIndex={0}
-        collapseIcon={(options) => (
+        collapseIcon={() => (
           <svg
             width="14"
             height="14"
@@ -36,7 +35,7 @@ const Sidebar = () => {
             ></path>
           </svg>
         )}
-        expandIcon={(options) => (
+        expandIcon={() => (
           <svg
             width="14"
             height="14"
@@ -89,7 +88,7 @@ const Sidebar = () => {
                   ].join(" ")
                 }
               >
-                Manage
+                Manage Medallion
               </NavLink>
             </li>
             <li>

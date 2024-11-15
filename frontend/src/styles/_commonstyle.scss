@@ -10,16 +10,48 @@
     .p-inputtext:enabled:focus{
       box-shadow: unset;
     }
+    .p-calendar:not(.p-calendar-disabled).p-focus > .p-inputtext,.p-dropdown:not(.p-disabled).p-focus {
+      box-shadow: unset;
+    }
     .p-float-label > label {
       left: 0;
+    }
+    .p-radiobutton{
+      &.p-highlight{
+        .p-radiobutton-box {
+          background-color: unset;
+        }
+        .p-radiobutton-icon {
+          width: 10px;
+          height: 10px;
+          transition-duration: 0.15s;
+          background-color: var(--bg-black);
+      }
+      }
+      .p-radiobutton-box {
+        border: 2px solid var(--bg-black);
+      }
+    } 
+    .p-button:focus {
+      box-shadow: unset;
+    }
+    .p-datatable .p-datatable-tbody > tr.p-highlight{
+      background-color: unset;
+      color: unset;
     }
   }
 
   a{
     text-decoration: none;
   }
+  p{
+    margin-bottom: unset;
+  }
   ul {
      padding-left: unset;
+  }
+  .w-max-content {
+    width: max-content;
   }
   .text-black{
     color: var(--text-color);
@@ -41,8 +73,12 @@
   .fw-small{
     font-size: var(--fs18);        
   }
+  .rotate-45{
+    transform: rotate(45deg);
+  }
 
   .primary-btn{
+    width: 200px;
     font-family: dmsans-bold;
     font-weight: bold;
   }
@@ -51,11 +87,23 @@
     font-family: dmsans-semibold;
     background: rgba(0, 0, 0, 1);
   }
+  .outline-btn{
+    svg{
+      width: var(--fs20);
+    }
+    padding-inline: var(--fs40);
+    border: 1px solid var(--primarycolor);
+  }
 
   .ternary-btn{
     font-family: dmsans-semibold;
   }
 
+  .topic-con{
+    svg{
+      width: var(--fs55);
+    }
+  }
   .topic-txt{
     font-size: var(--fs25);
     font-family: dmsans-bold;
@@ -64,8 +112,24 @@
     font-size: var(--fs20);
     font-family: dmsans-semibold;
   }
+  .regular-semibold-text{
+    font-size: var(--fs21);
+    font-family: dmsans-semibold;
+  }
+  .fs-16-semibold{
+    color: var(--text-color);
+    font-size: var(--fs16);
+    font-family: dmsans-semibold;
+  }
+
   .common-layout{
     padding: var(--fs40) var(--fs38);
+  }
+
+  .icon-black{
+    path{
+      fill:var(--bg-black)
+    }
   }
 
   .cus-gap-5{
@@ -75,22 +139,36 @@
   .step-menu{
     &.active{
       font-family: dmsans-semibold;
-      color: var(--text-colo);
+      color: var(--text-color);
       span{
         font-family: dmsans-semibold;
-        color: var(--text-colo);
+        color: var(--text-color);
         background-color: var(--primarycolor);
         border: 1px solid var(--primarycolor);
       }
     }
     span{
       width: 25px;
-      height: 25px;
+      height: 24px;
       border: 1px solid var(--text-grey);
       font-size: var(--fs16);
     }
   }
 
+  .require-star{
+    color: var(--redcolor);
+  }
+  .error-msg{
+    @extend .fw-small;
+    position: absolute;
+    color: var(--redcolor);
+  }
+  .text-red{
+    color: var(--redcolor);
+  }
+  .text-require{
+    font-size: var(--fs15);
+  }
   .common-form{
     .form-section{
       .form-sec-header{
@@ -108,24 +186,72 @@
             height: 25px;
           }
         }
-        .text-require{
-          font-size: var(--fs15);
-        }
+      }
+      .common-gap{
+        gap: var(--fs45) var(--fs35);
       }
       .form-body{
         padding: var(--fs30);
         background: var(--bg-grey);
-        .text-field{
-          border-bottom: 1px solid var(--bg-black) !important;
+        .p-float-label:has(input:focus) label,
+        .p-float-label:has(input.p-filled) label,
+        .p-float-label:has(.p-inputwrapper-filled) label{
+          top: -.3rem;
+        }
+        .text-field,.calendar-field{
+          border-bottom: 1px solid var(--text-hash) !important;
+        }
+        .calendar-field{
+          input{
+            background-color: transparent;
+            border: 0;
+          }
+          button{
+            background-color: transparent;
+            border: 0;
+          }
+        }
+        .w-90{
+          width: 100%;
         }
         .form-grid-1{
-          display: grid;
-          grid-template-columns: auto auto auto;
-          gap: var(--fs25) var(--fs35);
+          gap: var(--fs45) var(--fs35);
+          .text-danger-con{
+            input,label{
+              color: var(--redcolor);
+            }
+          }
+          .w-100-3{
+            width: calc(100% / 3 - var(--fs35));
+          }
+          .w-100-2{
+            width: calc(100% / 2 - var(--fs35));
+          }
         }
-        .require-star{
-          color: var(--redcolor);
-        }
+        
       }
     }
+  }
+
+  .primary-table{
+     thead{
+      border-bottom: 2px solid var(--bg-black);
+      font-size: var(--fs18);
+     }
+     .p-checkbox .p-checkbox-box {
+      border: 1px solid var(--bg-black);
+      border-radius: 2px;
+     }
+     .p-checkbox.p-highlight .p-checkbox-box {
+      border: 0px;
+     }
+     .p-datatable-tbody > tr {
+      border-bottom: 2px solid var(--bg-grey);
+      font-size: var(--fs16);
+     }
+     .doc-img{
+      svg{
+        width: var(--fs35);
+      }
+     }
   }

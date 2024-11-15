@@ -1,8 +1,6 @@
 header{
     background-color: var(--primarycolor);
-    .inner-con{
-        padding-inline: 15px;
-    }
+    padding-inline: 15px;
     .logo{
         gap: 5px;
         font-family: dmsans-bold;
@@ -23,8 +21,5 @@ header{
         min-width:500px ;
         background-color: var(--bg-white);
         border-radius: 30px;
-    }
-    .setting-con{
-        
     }
 }
