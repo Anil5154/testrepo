@@ -192,7 +192,7 @@ const CreateIndividualOwner = () => {
 
       return errors;
     },
-    onSubmit: (values, { setErrors }) => {
+    onSubmit: (values) => {
       console.log("values:", values)
       // setErrors({
       //   ...{

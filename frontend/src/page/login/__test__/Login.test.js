@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react"
 import Login from "../index";
-import configureStore from 'redux-mock-store';
+// import configureStore from 'redux-mock-store';
 import { useLoginMutation } from '../../../redux/api/authAPI';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -21,10 +21,10 @@ jest.mock('../../../redux/api/authAPI', () => ({
 
 
 
-const mockStore = configureStore([]);
-const store = mockStore({
-  user: { id: 1, name: 'Test User' },
-});  // Initialize store with mock state if needed
+// const mockStore = configureStore([]);
+// const store = mockStore({
+//   user: { id: 1, name: 'Test User' },
+// });  // Initialize store with mock state if needed
 describe("test Login Components", () => {
   const mockDispatch = jest.fn();
   const mockNavigate = jest.fn();

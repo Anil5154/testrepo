@@ -4,7 +4,7 @@ import { Column } from 'primereact/column';
 import { Button } from 'primereact/button';
 
 const Manage = () => {
-  const [products, setProducts] = useState([
+  const [products] = useState([
     {
     id: '1000',
     code: 'f230fh0g3',
@@ -67,7 +67,7 @@ const Manage = () => {
   },
   ]);
   const [selectedProducts, setSelectedProducts] = useState(null);
-  const [rowClick, setRowClick] = useState(true);
+  const [rowClick] = useState(true);
 
   return (
     <div><h1>Manage</h1>

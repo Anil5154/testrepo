@@ -16,7 +16,7 @@ const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [rememberMe, setRememberMe] = useState(false);
-    const [login, { isLoading }] = useLoginMutation();
+    const [login] = useLoginMutation();
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
