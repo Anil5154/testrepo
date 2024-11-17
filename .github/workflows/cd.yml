@@ -78,8 +78,7 @@ jobs:
           aws s3 ls s3://frontend-bat || exit 1
         continue-on-error: false  # Ensures the job fails if connection fails
          
-      - name: List files in the project
-        run: ls /home/runner/work/
+
 
       - name: Deploy to S3
         env:
@@ -104,18 +103,16 @@ jobs:
           # aws s3 sync /home/runner/work/conceptvines/conceptvines/frontend/build/ ${S3_PATH} --exclude "*" --include "*.css" --include "*.js"
           # aws s3 sync /home/runner/work/testrepo/testrepo/frontend/build/ ${S3_PATH} --include "*.*"
           rm -rf /home/runner/work/testrepo/testrepo/frontend/build/node_modules
-          ls /home/runner/work/testrepo/testrepo/frontend/
+      - name: List files in the project
+        run: ls /home/runner/work/testrepo/testrepo/frontend/
+          
           aws s3 sync /home/runner/work/testrepo/testrepo/frontend/build/ ${S3_PATH}/build/ --include "*" --dryrun
 
 
 
 
 
-          # aws s3 cp /home/runner/work/testrepo/testrepo/frontend/build/static/main.css ${S3_PATH}/main.css --only-show-errors
-
-
-
 
 
           
-          echo "Deployment to ${DEPLOY_ENV} environment completed successfully."
+
