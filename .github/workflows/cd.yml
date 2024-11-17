@@ -106,7 +106,7 @@ jobs:
       - name: List files in the project
         run: ls /home/runner/work/testrepo/testrepo/frontend/
       - name: Sync files to the specified S3 path
-          aws s3 sync /home/runner/work/testrepo/testrepo/frontend/build/ ${S3_PATH}/build/ --include "*" --dryrun
+         aws s3 sync /home/runner/work/testrepo/testrepo/frontend/build/ ${S3_PATH}/build/ --include "*" --dryrun
 
 
 
