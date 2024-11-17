@@ -77,6 +77,9 @@ jobs:
           echo "Checking AWS S3 connection..."
           aws s3 ls s3://frontend-bat || exit 1
         continue-on-error: false  # Ensures the job fails if connection fails
+         
+      - name: List files in the project
+        run: ls -R
 
       - name: Deploy to S3
         env:
@@ -98,7 +101,7 @@ jobs:
           echo "Deploying to: ${S3_PATH}"
           
           # Sync files to the specified S3 path
-          aws s3 sync /home/runner/work/bat-dispatcher/bat-dispatcher/frontend/build/ ${S3_PATH} --exclude "*" --include "*.css" --include "*.js"
+          aws s3 sync /home/runner/work/conceptvines/conceptvinesr/frontend/build/ ${S3_PATH} --exclude "*" --include "*.css" --include "*.js"
           # aws s3 sync /home/runner/work/testrepo/testrepo/frontend/build/ ${S3_PATH} --include "*.*"
           # aws s3 sync /home/runner/work/testrepo/testrepo/frontend/ ${S3_PATH}/build --exclude "build/node_modules/*" --exclude "build/node_modules/**/*" --include "*" --dryrun
 
