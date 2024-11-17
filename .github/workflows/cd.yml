@@ -79,7 +79,7 @@ jobs:
         continue-on-error: false  # Ensures the job fails if connection fails
          
       - name: List files in the project
-        run: ls -R
+        run: ls /home/runner/work/
 
       - name: Deploy to S3
         env:
