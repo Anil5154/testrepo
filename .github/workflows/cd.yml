@@ -104,6 +104,7 @@ jobs:
           # aws s3 sync /home/runner/work/testrepo/testrepo/frontend/build/ ${S3_PATH} --include "*.*"
           rm -rf /home/runner/work/testrepo/testrepo/frontend/build/node_modules
       - name: Sync files to the specified S3 path
+        run: |
           aws s3 sync /home/runner/work/testrepo/testrepo/frontend/build/ ${S3_PATH}/build/ --include "*" --dryrun
       - name: List files in the project
         run: ls /home/runner/work/testrepo/testrepo/frontend/
