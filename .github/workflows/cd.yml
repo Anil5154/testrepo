@@ -107,7 +107,7 @@ jobs:
         run: ls /home/runner/work/testrepo/testrepo/frontend/
       - name: Sync files to the specified S3 path
         run: |
-          aws s3 sync /home/runner/work/testrepo/testrepo/frontend/build/ ${S3_PATH}build/ --include "*" --dryrun
+          aws s3 sync /home/runner/work/testrepo/testrepo/frontend/build/ ${S3_PATH}build --include "*" --dryrun
 
 
       
