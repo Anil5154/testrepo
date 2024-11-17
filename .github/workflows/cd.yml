@@ -101,7 +101,7 @@ jobs:
           echo "Deploying to: ${S3_PATH}"
           
           # Sync files to the specified S3 path
-          aws s3 sync /home/runner/work/conceptvines/conceptvinesr/frontend/build/ ${S3_PATH} --exclude "*" --include "*.css" --include "*.js"
+          aws s3 sync /home/runner/work/conceptvines/conceptvines/frontend/build/ ${S3_PATH} --exclude "*" --include "*.css" --include "*.js"
           # aws s3 sync /home/runner/work/testrepo/testrepo/frontend/build/ ${S3_PATH} --include "*.*"
           # aws s3 sync /home/runner/work/testrepo/testrepo/frontend/ ${S3_PATH}/build --exclude "build/node_modules/*" --exclude "build/node_modules/**/*" --include "*" --dryrun
 
