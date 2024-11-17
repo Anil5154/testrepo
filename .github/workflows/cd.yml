@@ -104,7 +104,7 @@ jobs:
           # aws s3 sync /home/runner/work/conceptvines/conceptvines/frontend/build/ ${S3_PATH} --exclude "*" --include "*.css" --include "*.js"
           # aws s3 sync /home/runner/work/testrepo/testrepo/frontend/build/ ${S3_PATH} --include "*.*"
           rm -rf /home/runner/work/testrepo/testrepo/frontend/build/node_modules
-          aws s3 sync /home/runner/work/testrepo/testrepo/frontend/build/ ${S3_PATH}/build --exclude "node_modules/*" --exclude "node_modules/**/*" --include "*" --dryrun
+          aws s3 sync /home/runner/work/testrepo/testrepo/frontend/build/ ${S3_PATH}/build --include "*" --dryrun
 
 
 
