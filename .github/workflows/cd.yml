@@ -59,13 +59,13 @@ jobs:
         with:
           node-version: '20'  # Specify your Node.js version
 
-      # - name: Install Dependencies
-      #   working-directory: ./frontend 
-      #   run: npm install
+      - name: Install Dependencies
+        working-directory: ./frontend 
+        run: npm install
         
-      # - name: Build the React app
-      #   working-directory: ./frontend 
-      #   run: npm run build
+      - name: Build the React app
+        working-directory: ./frontend 
+        run: npm run build
 
       - name: Verify AWS S3 Connection
         env:
